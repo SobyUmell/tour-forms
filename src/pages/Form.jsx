@@ -1,6 +1,7 @@
 import '../scss/Form.scss'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const Form = () => {
 
   const [name, setName] = useState('');
@@ -25,9 +26,20 @@ const Form = () => {
     }
 
     setError('');
-    navigate('/thx');
 
-    // fetch stuff
+    axios.post('/beta', {
+      name,
+      email,
+    })
+    .then((res) => {
+      navigate('/thx');
+    })
+    .catch((err) => {
+      setError("Что-то пошло не так!")
+    })
+    
+
+    
     
   }
 
