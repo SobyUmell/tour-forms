@@ -27,7 +27,7 @@ const Form = () => {
 
     setError('');
 
-    axios.post('/beta', {
+    axios.post('https://tour-form-production.up.railway.app/api/form', {
       name,
       email,
     })
