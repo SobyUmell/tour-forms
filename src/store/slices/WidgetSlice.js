@@ -16,12 +16,10 @@ export const widgetSlice = createSlice({
   },
   reducers: {
     addWidget: (state, action) => {
-      console.log(state.all[action.payload.name]);
       state.all[action.payload.name] = action.payload;
       state.all[action.payload.parent].children.push(action.payload);
     },
     delWidget: (state, action) => {
-      console.log(state.all[action.payload.name]);
       delete state.all[action.payload.name];
       state.all[action.payload.parent].children = state.all[action.payload.parent].children.filter(child => {
         return child.name !== action.payload.name;

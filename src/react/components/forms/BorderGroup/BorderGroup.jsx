@@ -1,8 +1,8 @@
 import ColorPicker from "../../inputs/ColorPicker";
 import { useDispatch } from "react-redux";
 import { changeParam } from "../../../../store/slices/WidgetSlice";
-import { TextField, InputAdornment, FormControl, Select, MenuItem } from "@mui/material";
-
+import { TextField, FormControl, Select, MenuItem, InputLabel } from "@mui/material";
+import setDefaultWhenEmpty from "../../../../scripts/helpers/setDefaultWhenEmpty";
 import './BorderGroup.scss';
 
 const BorderGroup = ({current}) => {
@@ -30,17 +30,10 @@ const BorderGroup = ({current}) => {
   return (
     <div className="BorderGroup">
       <div className="content">
-        <ColorPicker value={current.styles.borderColor} handler={handleOnColor} />
-        <TextField
-          type="number"
-          InputProps={{
-            startAdornment: <InputAdornment position="start">W</InputAdornment>,
-          }}
-          value={current.styles.borderWidth ? current.styles.borderWidth.replace('px', '') : ''}
-          onChange={(e) => pushChangedStyles({borderWidth: e.target.value + 'px'})}
-        />
         <FormControl fullWidth>
+          <InputLabel>style</InputLabel>
           <Select
+            label='style'
             value={current.styles.borderStyle || ''}
             onChange={(e) => pushChangedStyles({borderStyle: e.target.value})}
           >
@@ -53,11 +46,24 @@ const BorderGroup = ({current}) => {
         </FormControl>
         <TextField
           type="number"
-          InputProps={{
-            startAdornment: <InputAdornment position="start">R</InputAdornment>,
+          label={'width'}
+          value={current.styles.borderWidth ? current.styles.borderWidth.replace('px', '') : ''}
+          onChange={(e) => pushChangedStyles({borderWidth: e.target.value + 'px'})}
+          onBlur={(e) => setDefaultWhenEmpty(e, () => pushChangedStyles({borderWidth: '0px'}))}
+          InputLabelProps={{
+            shrink: true,
           }}
+        />
+        <ColorPicker value={current.styles.borderColor} handler={handleOnColor} />
+        <TextField
+          label={'radius'}
+          type="number"
           value={current.styles.borderRadius ? current.styles.borderRadius.replace('px', '') : ''}
           onChange={(e) => pushChangedStyles({borderRadius: e.target.value + 'px'})}
+          onBlur={(e) => setDefaultWhenEmpty(e, () => pushChangedStyles({borderRadius: '0px'}))}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
       </div>
     </div>

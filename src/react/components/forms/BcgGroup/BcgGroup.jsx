@@ -2,14 +2,14 @@ import { useDispatch } from "react-redux";
 import { changeParam } from "../../../../store/slices/WidgetSlice";
 import { MuiFileInput } from "mui-file-input";
 import { useState } from "react";
-import { FormControl, Select, MenuItem } from "@mui/material";
+import { FormControl, Select, MenuItem, InputLabel } from "@mui/material";
 import ColorPicker from "../../inputs/ColorPicker";
 
 import { storage } from "../../../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
 import uuid from 'react-uuid';
 
+import './BcgGroup.scss'
 
 const BcgGroup = ({ current }) => {
 
@@ -63,7 +63,9 @@ const BcgGroup = ({ current }) => {
         <ColorPicker value={current.styles.backgroundColor} handler={handleOnBcgColor}/>
         <MuiFileInput placeholder="upload background image" value={file} onChange={uploadBcgImage} />
         <FormControl fullWidth>
+          <InputLabel>size</InputLabel>
           <Select
+            label={'size'}
             value={current.styles.backgroundSize || ''}
             onChange={(e) => pushChangedStyles({backgroundSize: e.target.value})}
           >
@@ -75,7 +77,9 @@ const BcgGroup = ({ current }) => {
           </Select>
         </FormControl>
         <FormControl fullWidth>
+          <InputLabel>position</InputLabel>
           <Select
+            label={'position'}
             value={current.styles.backgroundPosition || ''}
             onChange={(e) => pushChangedStyles({backgroundPosition: e.target.value})}
           >
@@ -87,7 +91,9 @@ const BcgGroup = ({ current }) => {
           </Select>
         </FormControl>
         <FormControl fullWidth>
+          <InputLabel>repeat</InputLabel>
           <Select
+            label={'repeat'}
             value={current.styles.backgroundRepeat || ''}
             onChange={(e) => pushChangedStyles({backgroundRepeat: e.target.value})}
           >

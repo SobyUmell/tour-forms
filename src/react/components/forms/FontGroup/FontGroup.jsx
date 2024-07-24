@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 
 import { font_list, font_weights } from '../../../../constants/fonts';
 import validateStyle from '../../../../scripts/helpers/validateStyle';
+import setDefaultWhenEmpty from '../../../../scripts/helpers/setDefaultWhenEmpty';
 import './FontGroup.scss'
 
 const FontGroup = ({current}) => {
@@ -28,7 +29,6 @@ const FontGroup = ({current}) => {
       styles
     }
     dispatch(changeParam(batch))
-    console.log(current);
   };
 
   const handleOnColor = (color) => {
@@ -57,16 +57,16 @@ const FontGroup = ({current}) => {
         type="number"
         value={validateStyle(current.styles.fontSize, '', 'px')}
         onChange={(e) => pushChangedStyles({fontSize: e.target.value + 'px'})}
+        onBlur={(e) => setDefaultWhenEmpty(e, () => pushChangedStyles({fontSize: '40px'}))}
         InputLabelProps={{
           shrink: true,
         }}
       />
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-standard-label">weight</InputLabel>
+        <InputLabel>weight</InputLabel>
         <Select
-          value={validateStyle(current.styles.fontWeight, '', 'px')}
-          label={'size'}
-          labelId="demo-simple-select-standard-label"
+          value={current.styles.fontWeight}
+          label={'weight'}
           onChange={(e) => pushChangedStyles({fontWeight: e.target.value})}
         >
           {

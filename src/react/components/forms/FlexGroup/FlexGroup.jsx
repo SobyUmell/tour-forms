@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { Select, FormControl, MenuItem } from "@mui/material";
+import { Select, FormControl, MenuItem, InputLabel} from "@mui/material";
 import { changeParam } from "../../../../store/slices/WidgetSlice";
 import validateStyle from "../../../../scripts/helpers/validateStyle";
 
@@ -27,7 +27,9 @@ const FlexGroup = ({current}) => {
     <div className="FlexGroup">
       <div className="content">
         <FormControl fullWidth>
+          <InputLabel>justefy content</InputLabel>
           <Select
+            label={'justefy content'}
             value={current.styles.justifyContent || ''}
             onChange={(e) => pushChangedStyles({justifyContent: e.target.value})}
           >
@@ -39,7 +41,9 @@ const FlexGroup = ({current}) => {
           </Select>
         </FormControl>
         <FormControl fullWidth>
+          <InputLabel>align items</InputLabel>
           <Select
+            label={'align items'}
             value={current.styles.alignItems || ''}
             onChange={(e) => pushChangedStyles({alignItems: e.target.value})}
           >
@@ -51,7 +55,9 @@ const FlexGroup = ({current}) => {
           </Select>
         </FormControl>
         <FormControl fullWidth>
+          <InputLabel>direction</InputLabel>
           <Select
+            label={'direction'}
             value={current.styles.flexDirection || ''}
             onChange={(e) => pushChangedStyles({flexDirection: e.target.value})}
           >

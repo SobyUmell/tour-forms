@@ -11,11 +11,10 @@ export const image_default = {
 }
 
 export const title_default = {
-  display: 'inline',
   width: '100%',
   fontFamily: 'Roboto',
   fontSize: '40px',
-  fontWeight: '400',
+  fontWeight: 400,
   lineHeight: '120%',
   margin: '10px',
   marginTop: '10px',
@@ -31,9 +30,10 @@ export const title_default = {
 }
 
 export const text_default = {
-  fontFamily: 'Times New Roman',
+  fontFamily: 'Roboto',
+  fontWeight: 400,
+  width: '100%',
   fontSize: '20px',
-  fontWeight: '300',
   lineHeight: '130%',
   margin: '10px',
   marginTop: '10px',
