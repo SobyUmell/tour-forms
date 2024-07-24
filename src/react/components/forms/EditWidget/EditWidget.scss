@@ -1,0 +1,9 @@
+.EditWidget {
+  width: 100%;
+  flex: 1 1 50%;
+  overflow: scroll;
+  > .content {
+    display: flex;
+    flex-direction: column;
+  }
+}

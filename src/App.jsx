@@ -1,29 +1,34 @@
-
-import './App.css';
 import {
   createBrowserRouter,
   RouterProvider,
   BrowserRouter
 } from "react-router-dom";
-import Form from './pages/Form';
-import Thanks from './pages/Thanks';
+
+import store from './store/store'
+import { Provider } from "react-redux";
+
+// components
+import CreateFormPage from "./react/pages/CreateFormPage";
+
+// styles
+import './styles/global.scss'
+import FormCanvas from "./react/components/ui/FormCanvas/FormCanvas";
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Form /> ,
-  },
-  {
-    path: "/thx",
-    element: <Thanks /> ,
+    element: <CreateFormPage />
   },
 ]);
 
 function App() {
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <RouterProvider router={router} />
+      </div>
+    </Provider>
   );
 }
 

@@ -1,0 +1,22 @@
+.Card {
+  background-color: #fff;
+  > .content {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 20px;
+  }
+  &:hover {
+    background-color: #eaeaea;
+  }
+}
+
+.WidgetBar {
+  width: 100%;
+  flex: 1 1 50%;
+  overflow: scroll;
+  .list {
+    overflow: scroll;
+  }
+}
+
