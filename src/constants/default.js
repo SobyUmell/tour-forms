@@ -7,7 +7,13 @@ export const all_default = {
 
 
 export const image_default = {
-  width: '200px',
+  width: '100%',
+  maxWidth: '500px',
+}
+
+export const video_default = {
+  width: '100%',
+  maxWidth: '500px',
 }
 
 export const title_default = {

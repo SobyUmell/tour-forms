@@ -1,7 +1,7 @@
-import { Modal } from "@mui/material";
+import { Modal, Skeleton } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { delWidget, changeValue } from "../../../../store/slices/WidgetSlice";
+import { delWidget, changeValue, setCurrentWidget } from "../../../../store/slices/WidgetSlice";
 import { MuiFileInput } from "mui-file-input";
 import ReactPlayer from "react-player";
 
@@ -15,6 +15,7 @@ const VideoWidget = ({widget}) => {
   const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
   const [uploaded, setUploaded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [file, setFile] = useState(null)
   
@@ -37,16 +38,23 @@ const VideoWidget = ({widget}) => {
     }
   }
 
+  const handleOnClick = (e) => {
+    e.stopPropagation();
+    dispatch(setCurrentWidget(widget));
+  }
 
-  const uploadImg = (newFile) => {
+
+  const uploadVideo = (newFile) => {
     setFile(newFile);
+    setOpen(false);
+    setLoading(true);
     const imageRef = ref(storage, `videos/${newFile.name + uuid()}`)
     uploadBytes(imageRef, newFile)
     .then((image) => {
       getDownloadURL(image.ref)
       .then(url => {
         pushChangedValue(url);
-        setOpen(false);
+        setLoading(false);
         setUploaded(true);
       })
       .catch(error => {
@@ -58,14 +66,21 @@ const VideoWidget = ({widget}) => {
   return (
     <div className="VideoWidget">
       <div className="contene">
-        <ReactPlayer url={widget.attributes.value ? widget.attributes.value : ''} controls />
+        {
+          loading && 
+          <Skeleton variant="rectangular" sx={{width: '500px', height: '500px'}} />
+        }
+        {
+          uploaded && <ReactPlayer url={widget.attributes.value ? widget.attributes.value : ''} controls style={widget.styles} onClick={handleOnClick}/>
+        }
+        
         <Modal
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <MuiFileInput value={file} onChange={uploadImg} placeholder={'Upload a video'} />
+          <MuiFileInput value={file} onChange={uploadVideo} placeholder={'Upload a video'} />
         </Modal>
       </div>
     </div>

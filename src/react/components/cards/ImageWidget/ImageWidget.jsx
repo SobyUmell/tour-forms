@@ -1,7 +1,7 @@
-import { Modal } from "@mui/material";
+import { Modal, Skeleton } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { delWidget, changeValue } from "../../../../store/slices/WidgetSlice";
+import { delWidget, changeValue, setCurrentWidget } from "../../../../store/slices/WidgetSlice";
 import { MuiFileInput } from "mui-file-input";
 
 import { storage } from "../../../../firebase";
@@ -12,6 +12,7 @@ const ImageWidget = ({widget}) => {
   const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
   const [uploaded, setUploaded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [file, setFile] = useState(null)
   
@@ -37,13 +38,15 @@ const ImageWidget = ({widget}) => {
 
   const uploadImg = (newFile) => {
     setFile(newFile);
+    setOpen(false);
+    setLoading(true);
     const imageRef = ref(storage, `images/${newFile.name + uuid()}`)
     uploadBytes(imageRef, newFile)
     .then((image) => {
       getDownloadURL(image.ref)
       .then(url => {
         pushChangedValue(url);
-        setOpen(false);
+        setLoading(false);
         setUploaded(true);
       })
       .catch(error => {
@@ -52,9 +55,20 @@ const ImageWidget = ({widget}) => {
     })
   }
 
+  const handleOnClick = (e) => {
+    e.stopPropagation();
+    dispatch(setCurrentWidget(widget));
+  }
+
   return (
     <div className="ImageWidget">
-      <img src={widget.attributes.value ? widget.attributes.value : ''} alt="Image Widget" />
+      {
+        loading && 
+        <Skeleton variant="rectangular" sx={{width: '500px', height: '500px'}} />
+      }
+      {
+        uploaded && <img src={widget.attributes.value ? widget.attributes.value : ''} alt={'Image Widget'} style={widget.styles} onClick={handleOnClick} />
+      }
       <Modal
         open={open}
         onClose={handleClose}

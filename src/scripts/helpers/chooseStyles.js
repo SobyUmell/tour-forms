@@ -1,4 +1,4 @@
-import { text_default, title_default, cont_default } from "../../constants/default"
+import { text_default, title_default, cont_default, image_default, video_default } from "../../constants/default"
 const chooseStyles = (name) => {
   const type = name.split('_')[0];
   switch (type) {
@@ -10,6 +10,12 @@ const chooseStyles = (name) => {
       break;
     case 'CONT':
       return cont_default;
+      break;
+    case 'IMAGE':
+      return image_default;
+      break; 
+    case 'VIDEO':
+      return video_default;
       break;
     default:
       return {};
