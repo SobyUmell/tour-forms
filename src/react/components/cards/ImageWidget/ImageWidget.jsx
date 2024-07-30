@@ -1,7 +1,7 @@
 import { Modal, Skeleton } from "@mui/material";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { delWidget, changeValue, setCurrentWidget } from "../../../../store/slices/WidgetSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { delWidget, changeValue, setCurrentWidget, setMediaRef } from "../../../../store/slices/WidgetSlice";
 import { MuiFileInput } from "mui-file-input";
 
 import { storage } from "../../../../firebase";
@@ -10,12 +10,13 @@ import uuid from 'react-uuid';
 
 const ImageWidget = ({widget}) => {
   const [open, setOpen] = useState(true);
-  const dispatch = useDispatch();
   const [uploaded, setUploaded] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [file, setFile] = useState(null)
   
+  const dispatch = useDispatch();
+  const current = useSelector(state => state.widgets.current);
+
   const pushChangedValue = (value) => {
     const batch = {
       name: widget.name,
@@ -43,6 +44,7 @@ const ImageWidget = ({widget}) => {
     const imageRef = ref(storage, `images/${newFile.name + uuid()}`)
     uploadBytes(imageRef, newFile)
     .then((image) => {
+      dispatch(setMediaRef({name: widget.name, ref: image.ref}))
       getDownloadURL(image.ref)
       .then(url => {
         pushChangedValue(url);
@@ -57,11 +59,11 @@ const ImageWidget = ({widget}) => {
 
   const handleOnClick = (e) => {
     e.stopPropagation();
-    dispatch(setCurrentWidget(widget));
+    dispatch(setCurrentWidget(widget.name));
   }
 
   return (
-    <div className="ImageWidget">
+    <div className={`ImageWidget ${widget.name === current ? 'focused' : ''}`}>
       {
         loading && 
         <Skeleton variant="rectangular" sx={{width: '500px', height: '500px'}} />

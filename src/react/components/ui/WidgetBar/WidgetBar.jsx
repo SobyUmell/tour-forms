@@ -1,6 +1,5 @@
 import ContCard from "../../cards/ContCard";
 import TitleCard from "../../cards/TitleCard";
-import TextCard from "../../cards/TextCard";
 import ImageCard from "../../cards/ImageCard"
 import VideoCard from "../../cards/VideoCard"
 import InputCard from "../../cards/InputCard"
@@ -18,8 +17,6 @@ const WidgetBar = () => {
         <ContCard />
         <Divider />
         <TitleCard />
-        <Divider />
-        <TextCard />
         <Divider />
         <ImageCard />
         <Divider />

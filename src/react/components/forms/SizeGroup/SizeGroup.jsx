@@ -1,4 +1,4 @@
-import { TextField, FormControlLabel, Checkbox, Typography } from "@mui/material";
+import { TextField, FormControlLabel, Checkbox } from "@mui/material";
 import { changeParam } from "../../../../store/slices/WidgetSlice";
 import { useDispatch } from "react-redux";
 import setDefaultWhenEmpty from "../../../../scripts/helpers/setDefaultWhenEmpty";
@@ -10,18 +10,12 @@ const SizeGroup = ({current}) => {
 
   const dispatch = useDispatch();
 
-  const [type, setType] = useState('px');
   const [isW, setIsW] = useState(false);
   const [isH, setIsH] = useState(false);
   
-
-  const changeType = (e) => {
-    setType(e.target.value);
-  } 
   const pushChangedStyles = (styles) => {
     const batch = {
       name: current.name,
-      parent: current.parent,
       styles
     }
     dispatch(changeParam(batch))
@@ -50,7 +44,7 @@ const SizeGroup = ({current}) => {
     return;
   }
 
-  if (!current.name) {
+  if (!current) {
     return null;
   }
 

@@ -1,7 +1,7 @@
 import { Modal, Skeleton } from "@mui/material";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { delWidget, changeValue, setCurrentWidget } from "../../../../store/slices/WidgetSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { delWidget, changeValue, setCurrentWidget, setMediaRef } from "../../../../store/slices/WidgetSlice";
 import { MuiFileInput } from "mui-file-input";
 import ReactPlayer from "react-player";
 
@@ -13,11 +13,14 @@ import uuid from 'react-uuid';
 const VideoWidget = ({widget}) => {
 
   const [open, setOpen] = useState(true);
-  const dispatch = useDispatch();
   const [uploaded, setUploaded] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [file, setFile] = useState(null)
+
+  const dispatch = useDispatch();
+  const current = useSelector(state => state.widgets.current);
+
   
   const pushChangedValue = (value) => {
     const batch = {
@@ -40,7 +43,7 @@ const VideoWidget = ({widget}) => {
 
   const handleOnClick = (e) => {
     e.stopPropagation();
-    dispatch(setCurrentWidget(widget));
+    dispatch(setCurrentWidget(widget.name));
   }
 
 
@@ -51,6 +54,7 @@ const VideoWidget = ({widget}) => {
     const imageRef = ref(storage, `videos/${newFile.name + uuid()}`)
     uploadBytes(imageRef, newFile)
     .then((image) => {
+      setMediaRef({name: widget.name, ref: image.ref})
       getDownloadURL(image.ref)
       .then(url => {
         pushChangedValue(url);
@@ -64,14 +68,14 @@ const VideoWidget = ({widget}) => {
   }
 
   return (
-    <div className="VideoWidget">
+    <div className={`VideoWidget ${widget.name === current ? 'focused' : ''}`} style={widget.styles} onClick={handleOnClick}>
       <div className="contene">
         {
           loading && 
           <Skeleton variant="rectangular" sx={{width: '500px', height: '500px'}} />
         }
         {
-          uploaded && <ReactPlayer url={widget.attributes.value ? widget.attributes.value : ''} controls style={widget.styles} onClick={handleOnClick}/>
+          uploaded && <ReactPlayer url={widget.attributes.value ? widget.attributes.value : ''} controls />
         }
         
         <Modal

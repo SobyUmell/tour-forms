@@ -3,6 +3,7 @@ import LeftBar from "../../components/ui/LeftBar";
 import './CreateFormPage.scss'
 const CreateFormPage = () => {
 
+
   return (
     <div className="CreateFormPage">
       <div className="content">

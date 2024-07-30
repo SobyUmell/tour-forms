@@ -35,7 +35,7 @@ const FontGroup = ({current}) => {
     pushChangedStyles({ color })
   }
 
-  if (!current.name) {
+  if (!current) {
     return null;
   }
   return (

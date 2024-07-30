@@ -14,7 +14,7 @@ const ValueGroup = ({current}) => {
     dispatch(changeValue(batch))
   };
 
-  if (!current.name) {
+  if (!current) {
     return null;
   }
   return (

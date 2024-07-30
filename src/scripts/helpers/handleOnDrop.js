@@ -1,4 +1,5 @@
 import { addWidget } from "../../store/slices/WidgetSlice";
+import chooseGroups from "./chooseGroups";
 import chooseStyles from "./chooseStyles";
 const handleOnDrop = (e, parent, dispatch) => {
   e.stopPropagation();
@@ -8,6 +9,7 @@ const handleOnDrop = (e, parent, dispatch) => {
     parent,
     styles: {...chooseStyles(name)},
     attributes: {
+      groups: chooseGroups(name),
     },
     children: [],
   }

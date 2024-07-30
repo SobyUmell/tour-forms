@@ -38,7 +38,7 @@ const SpaceGroup = ({current}) => {
     dispatch(changeParam(batch))
   };
 
-  if (!current.name) {
+  if (!current) {
     return null;
   }
 

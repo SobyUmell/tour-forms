@@ -10,18 +10,17 @@ const ContWidget = ({widget}) => {
   const widgets = useSelector(state => state.widgets.all);
   const current = useSelector(state => state.widgets.current);
   const dispatch = useDispatch();
-
+  console.log(widgets);
   const handleOnClick = (e) => {
     e.stopPropagation();
-    dispatch(setCurrentWidget(widget));
+    dispatch(setCurrentWidget(widget.name));
   }
   return (
-    <div className={`ContWidget ${widget.name === current.name ? 'focused' : ''}`} onDrop={(e) => handleOnDrop(e, widget.name, dispatch)} style={widget.styles} onClick={handleOnClick} >
+    <div className={`ContWidget ${widget.name === current ? 'focused' : ''}`} onDrop={(e) => handleOnDrop(e, widget.name, dispatch)} style={widget.styles} onClick={handleOnClick} >
       {
         widgets[widget.name].children.map(w => {
-          return <AutoWidget key={w.name} widget={w} />
+          return <AutoWidget key={w} widget={widgets[w]} />
         })
-
       }
     </div>
   );

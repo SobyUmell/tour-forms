@@ -1,30 +1,42 @@
 import { UpdateDisabled } from '@mui/icons-material';
 import { createSlice } from '@reduxjs/toolkit'
+import { root_default } from '../../constants/default';
 
 export const widgetSlice = createSlice({
   name: 'widgets',
   initialState: { 
-    current: {},
+    current: null,
     all: {
       'root': {
         name: 'root',
-        attributes: {},
-        styles: {},
+        attributes: {
+          groups: {
+            bcg: true,
+            border: true,
+            flex: true,
+            font: false,
+            size: true,
+            space: true,
+            value: false,
+          }
+        },
+        styles: root_default,
         children: []
       }
-    }
+    },
+    media: {}
   },
   reducers: {
     addWidget: (state, action) => {
       state.all[action.payload.name] = action.payload;
-      state.all[action.payload.parent].children.push(action.payload);
+      state.all[action.payload.parent].children.push(action.payload.name);
     },
     delWidget: (state, action) => {
       delete state.all[action.payload.name];
       state.all[action.payload.parent].children = state.all[action.payload.parent].children.filter(child => {
-        return child.name !== action.payload.name;
+        return child !== action.payload.name;
       })
-      state.current = {};
+      state.current = null;
     },
     changeParam: (state, action) => {
       const widget_name = action.payload.name;
@@ -33,41 +45,28 @@ export const widgetSlice = createSlice({
         ...action.payload.styles
       }
       state.all[widget_name].styles = changed_styles;
-      state.all[action.payload.parent].children.map(child => {
-        if (child.name === action.payload.name) {
-          let updated = child;
-          updated.styles = changed_styles;
-          return updated;
-        }
-        return child;
-      })
-      state.current.styles = changed_styles;
     },
     changeValue: (state, action) => {
       state.all[action.payload.name].attributes.value = action.payload.value;
-      state.all[action.payload.parent].children.map(child => {
-        if (child.name === action.payload.name) {
-          let updated = child;
-          updated.attributes.value = action.payload.value;
-          return updated;
-        }
-        return child;
-      })
-      
-      if (state.current.attributes) {
-        state.current.attributes.value = action.payload.value;
+    },
+    setMediaRef: (state, action) => {
+      state.media[action.payload.name] = action.payload.ref;
+    },
+    resetMediaRef: (state, action) => {
+      if (state.media[action.payload.name]) {
+        delete state.media[action.payload.name];
       }
     },
     setCurrentWidget: (state, action) => {
       state.current = action.payload;
     },
     delCurrentWidget: (state) => {
-      state.current = {};
+      state.current = null;
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addWidget, delWidget, changeParam, changeValue, setCurrentWidget, delCurrentWidget } = widgetSlice.actions
+export const { addWidget, delWidget, changeParam, changeValue, setMediaRef, setCurrentWidget, delCurrentWidget } = widgetSlice.actions
 
 export default widgetSlice.reducer

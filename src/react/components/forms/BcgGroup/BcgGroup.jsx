@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { changeParam } from "../../../../store/slices/WidgetSlice";
+import { changeParam, setMediaRef } from "../../../../store/slices/WidgetSlice";
 import { MuiFileInput } from "mui-file-input";
 import { useState } from "react";
 import { FormControl, Select, MenuItem, InputLabel } from "@mui/material";
@@ -41,7 +41,7 @@ const BcgGroup = ({ current }) => {
     const imageRef = ref(storage, `backgrounds/${newFile.name + uuid()}`)
     uploadBytes(imageRef, newFile)
     .then((image) => {
-      console.log(image)
+      dispatch(setMediaRef({name: current.name, ref: image.ref}));
       getDownloadURL(image.ref)
       .then(url => {
         console.log(url)
@@ -53,7 +53,7 @@ const BcgGroup = ({ current }) => {
     })
   }
   
-  if (!current.name) {
+  if (!current) {
     return null;
   }
 

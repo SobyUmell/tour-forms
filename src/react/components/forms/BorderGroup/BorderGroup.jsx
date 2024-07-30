@@ -23,7 +23,7 @@ const BorderGroup = ({current}) => {
     pushChangedStyles({ borderColor })
   }
 
-  if (!current.name) {
+  if (!current) {
     return null;
   }
 
