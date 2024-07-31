@@ -32,6 +32,11 @@ export const title_default = {
   color: '#000',
 }
 
+export const input_default = {
+  maxWidth: '400px',
+  width: '100%',
+}
+
 export const cont_default = {
   maxWidth: '400px',
   maxHeight: '200px',

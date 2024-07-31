@@ -11,6 +11,7 @@ import BorderGroup from "../BorderGroup";
 import FlexGroup from "../FlexGroup";
 import BcgGroup from "../BcgGroup";
 import ValueGroup from "../ValueGroup";
+import InputGroup from "../InputGroup";
 
 import { useSelector, useDispatch } from "react-redux";
 import './EditWidget.scss'
@@ -126,6 +127,21 @@ const EditWidget = () => {
               </AccordionSummary>
               <AccordionDetails>
                 <ValueGroup current={w_state.all[w_state.current]} />
+              </AccordionDetails>
+            </Accordion>
+          }
+          {
+            w_state.all[w_state.current].attributes.groups.input &&
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+              >
+                <Typography >
+                  Input
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <InputGroup current={w_state.all[w_state.current]} />
               </AccordionDetails>
             </Accordion>
           }

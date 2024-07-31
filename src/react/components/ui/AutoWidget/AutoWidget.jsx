@@ -1,12 +1,11 @@
 import ContWidget from "../ContWidget";
-import ImageWidget from "../../cards/ImageWidget";
+import ImageWidget from "../ImageWidget/ImageWidget";
 import InputWidget from "../../inputs/InputWidget";
 import TitleWidget from "../TitleWidget";
 import VideoWidget from "../VideoWidget";
 
 const AutoWidget = ({widget}) => {
   const type = widget.name.split('_')[0];
-
   switch(type) {
     case 'CONT':
       return <ContWidget widget={widget} />

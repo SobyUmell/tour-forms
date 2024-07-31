@@ -10,11 +10,11 @@ const ContWidget = ({widget}) => {
   const widgets = useSelector(state => state.widgets.all);
   const current = useSelector(state => state.widgets.current);
   const dispatch = useDispatch();
-  console.log(widgets);
   const handleOnClick = (e) => {
     e.stopPropagation();
     dispatch(setCurrentWidget(widget.name));
   }
+  console.log(widget)
   return (
     <div className={`ContWidget ${widget.name === current ? 'focused' : ''}`} onDrop={(e) => handleOnDrop(e, widget.name, dispatch)} style={widget.styles} onClick={handleOnClick} >
       {

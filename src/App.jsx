@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 
 // components
 import CreateFormPage from "./react/pages/CreateFormPage";
+import ViewFormPage from "./react/pages/ViewFormPage";
 
 // styles
 import './styles/global.scss'
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <CreateFormPage />
+  },
+  {
+    path: "/view",
+    element: <ViewFormPage />
   },
 ]);
 

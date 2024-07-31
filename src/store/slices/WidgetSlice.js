@@ -18,6 +18,7 @@ export const widgetSlice = createSlice({
             size: true,
             space: true,
             value: false,
+            input: false,
           }
         },
         styles: root_default,
@@ -49,6 +50,9 @@ export const widgetSlice = createSlice({
     changeValue: (state, action) => {
       state.all[action.payload.name].attributes.value = action.payload.value;
     },
+    changePlaceholder: (state, action) => {
+      state.all[action.payload.name].attributes.placeholder = action.payload.placeholder;
+    },
     setMediaRef: (state, action) => {
       state.media[action.payload.name] = action.payload.ref;
     },
@@ -67,6 +71,6 @@ export const widgetSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addWidget, delWidget, changeParam, changeValue, setMediaRef, setCurrentWidget, delCurrentWidget } = widgetSlice.actions
+export const { addWidget, delWidget, changeParam, changeValue, changePlaceholder, setMediaRef, setCurrentWidget, delCurrentWidget } = widgetSlice.actions
 
 export default widgetSlice.reducer

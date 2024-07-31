@@ -68,21 +68,19 @@ const VideoWidget = ({widget}) => {
   }
 
   return (
-    <div className={`VideoWidget ${widget.name === current ? 'focused' : ''}`} style={widget.styles} onClick={handleOnClick}>
+    <div className={`VideoWidget ${widget.name === current ? 'focused' : ''}`} >
       <div className="contene">
         {
           loading && 
           <Skeleton variant="rectangular" sx={{width: '500px', height: '500px'}} />
         }
         {
-          uploaded && <ReactPlayer url={widget.attributes.value ? widget.attributes.value : ''} controls />
+          uploaded && <ReactPlayer url={widget.attributes.value ? widget.attributes.value : ''} controls style={widget.styles} onClick={handleOnClick} />
         }
         
         <Modal
           open={open}
           onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
         >
           <MuiFileInput value={file} onChange={uploadVideo} placeholder={'Upload a video'} />
         </Modal>

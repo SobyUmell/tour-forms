@@ -10,6 +10,7 @@ const chooseGroups = (name) => {
         size: false,
         space: true,
         value: true,
+        input: false,
       };
       break;
     case 'TEXT': 
@@ -21,6 +22,19 @@ const chooseGroups = (name) => {
         size: false,
         space: true,
         value: true,
+        input: false,
+      };
+      break;
+    case 'INPUT': 
+      return {
+        bcg: false,
+        border: true,
+        flex: false,
+        font: true,
+        size: true,
+        space: true,
+        value: false,
+        input: true,
       };
       break;
     case 'CONT':
@@ -32,6 +46,7 @@ const chooseGroups = (name) => {
         size: true,
         space: true,
         value: false,
+        input: false,
       };
       break;
     case 'IMAGE':
@@ -43,6 +58,7 @@ const chooseGroups = (name) => {
         size: true,
         space: true,
         value: false,
+        input: false,
       };
       break; 
     case 'VIDEO':
@@ -54,6 +70,7 @@ const chooseGroups = (name) => {
         size: false,
         space: true,
         value: false,
+        input: false,
       };
       break;
     default:

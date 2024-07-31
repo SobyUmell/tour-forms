@@ -10,6 +10,7 @@ const handleOnDrop = (e, parent, dispatch) => {
     styles: {...chooseStyles(name)},
     attributes: {
       groups: chooseGroups(name),
+      placeholder: 'input',
     },
     children: [],
   }

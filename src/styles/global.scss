@@ -55,45 +55,7 @@ table {
 
 @import 'text.scss', 'variables.scss';
 
-.FormCanvas {
-	outline: 2px dashed #777;
-	outline-offset: -2px;
-	&.focused {
-		outline: 2px solid #2b7cff;
-		outline-offset: -2px;
-	}
-}
-
-.ContWidget {
-	outline: 2px dashed #777;
-	outline-offset: -2px;
-	&.focused {
-		outline: 2px solid #2b7cff;
-		outline-offset: -2px;
-	}
-}
-
-.TitleWidget {
-	outline: 2px dashed #777;
-	outline-offset: -2px;
-	&.focused {
-		outline: 2px solid #2b7cff;
-		outline-offset: -2px;
-	}
-}
-
-.ImageWidget {
-	width: fit-content;
-	outline: 2px dashed #777;
-	outline-offset: -2px;
-	&.focused {
-		outline: 2px solid #2b7cff;
-		outline-offset: -2px;
-	}
-}
-
-.VideoWidget {
-	width: fit-content;
+.FormCanvas, .ContWidget, .TitleWidget, .ImageWidget, .VideoWidget {
 	outline: 2px dashed #777;
 	outline-offset: -2px;
 	&.focused {
