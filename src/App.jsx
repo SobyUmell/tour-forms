@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 // components
 import CreateFormPage from "./react/pages/CreateFormPage";
 import ViewFormPage from "./react/pages/ViewFormPage";
+import FormListPage from "./react/pages/FormListPage";
 
 // styles
 import './styles/global.scss'
@@ -19,6 +20,10 @@ import FormCanvas from "./react/components/ui/FormCanvas/FormCanvas";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <FormListPage />
+  },
+  {
+    path: "/create",
     element: <CreateFormPage />
   },
   {

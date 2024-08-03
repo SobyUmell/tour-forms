@@ -1,0 +1,25 @@
+.FormListPage {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  > .content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    .list_item {
+      > .content {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+        border-bottom: 1px solid #000;
+        .btn_group {
+          display: flex;
+          gap: 20px;
+        }
+      }
+    }
+  }
+}
