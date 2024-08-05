@@ -156,9 +156,14 @@ const EditWidget = () => {
               </AccordionDetails>
             </Accordion>
           }
-          <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleOnDelete}>
-            Delete
-          </Button>
+          { 
+            w_state.current !== 'root' 
+            &&
+            <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleOnDelete}>
+              Delete
+            </Button>          
+          }
+
         </div>
       </div>
     );
