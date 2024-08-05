@@ -38,10 +38,10 @@ export const input_default = {
 }
 
 export const cont_default = {
-  maxWidth: '400px',
-  maxHeight: '200px',
+  maxWidth: 'none',
+  maxHeight: 'none',
   width: '100%',
-  height: '100%',
+  height: '100px',
   display: 'flex',
   flexDirection: 'column',
   margin: '0px',
@@ -58,10 +58,6 @@ export const cont_default = {
 }
 
 export const root_default = {
-  maxWidth: '100%',
-  maxHeight: '100%',
-  width: '1200px',
-  height: '700px',
   display: 'flex',
   flexDirection: 'column',
   margin: '0px',

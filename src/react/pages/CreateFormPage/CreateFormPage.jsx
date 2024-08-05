@@ -1,5 +1,5 @@
-import FormCanvas from "../../components/ui/FormCanvas";
 import LeftBar from "../../components/ui/LeftBar";
+import ZoomPage from "../../components/ui/ZoomPage";
 import './CreateFormPage.scss'
 const CreateFormPage = () => {
 
@@ -8,9 +8,7 @@ const CreateFormPage = () => {
     <div className="CreateFormPage">
       <div className="content">
         <LeftBar />
-        <div className="scroll">
-          <FormCanvas />
-        </div>
+        <ZoomPage />
       </div>
     </div>
   );

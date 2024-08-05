@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { root_default } from '../../constants/default';
+import { deleteObject } from 'firebase/storage';
 
 export const widgetSlice = createSlice({
   name: 'widgets',
@@ -14,7 +15,7 @@ export const widgetSlice = createSlice({
             border: true,
             flex: true,
             font: false,
-            size: true,
+            size: false,
             space: true,
             value: false,
             input: false,
@@ -32,6 +33,13 @@ export const widgetSlice = createSlice({
       state.all[action.payload.parent].children.push(action.payload.name);
     },
     delWidget: (state, action) => {
+      if (state.media[action.payload.name]) {
+        deleteObject(state.media[action.payload.name]).then(() => {
+          console.log('the file is deleted using ref in delWidget');
+        }).catch((error) => {
+          console.log(error);
+        });
+      }
       delete state.all[action.payload.name];
       state.all[action.payload.parent].children = state.all[action.payload.parent].children.filter(child => {
         return child !== action.payload.name;

@@ -1,8 +1,9 @@
-import { TextField, Typography } from "@mui/material";
+import { TextField, Typography, Button } from "@mui/material";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import SizeGroup from "../SizeGroup";
 import SpaceGroup from "../SpaceGroup";
@@ -13,6 +14,8 @@ import BcgGroup from "../BcgGroup";
 import ValueGroup from "../ValueGroup";
 import InputGroup from "../InputGroup";
 
+import { delWidget } from "../../../../store/slices/WidgetSlice";
+
 import { useSelector, useDispatch } from "react-redux";
 import './EditWidget.scss'
 
@@ -21,7 +24,15 @@ import './EditWidget.scss'
 const EditWidget = () => {
   
   const w_state = useSelector(state => state.widgets);
-  
+  const dispatch = useDispatch();
+
+  const handleOnDelete = () => {
+    dispatch(delWidget({
+      name: w_state.current,
+      parent: w_state.all[w_state.current].parent
+    }));
+  }
+
   if (w_state.current) {
     return (
       <div className="EditWidget">
@@ -145,6 +156,9 @@ const EditWidget = () => {
               </AccordionDetails>
             </Accordion>
           }
+          <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleOnDelete}>
+            Delete
+          </Button>
         </div>
       </div>
     );
