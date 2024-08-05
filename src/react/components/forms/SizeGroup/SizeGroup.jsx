@@ -11,13 +11,6 @@ import { useState } from "react";
 const SizeGroup = ({current}) => {
 
   const dispatch = useDispatch();
-  const [customMw, setCustomMw] = useState(false);
-  const [customMnw, setCustomMnw] = useState(false);
-  const [customMh, setCustomMh] = useState(false);
-  const [customMnh, setCustomMnh] = useState(false);
-  const [customW, setCustomW] = useState(false);
-  const [customH, setCustomH] = useState(false);
-
   
   const pushChangedStyles = (styles) => {
     const batch = {
@@ -27,20 +20,17 @@ const SizeGroup = ({current}) => {
     dispatch(changeParam(batch))
   };
 
-  const handleSizeMode = (value, param, callback) => {
+  const handleSizeMode = (value, param) => {
     switch(value) {
       case 'custom': 
-        pushChangedStyles({[param]: '1000px'});
-        callback(true)
+        pushChangedStyles({[param]: '500px'});
         break;
       case 'inherit':
       case 'none':
       case 'fit-content':
-        callback(false);
         pushChangedStyles({[param]: value});
         break;
       case 'full': 
-        callback(false);
         pushChangedStyles({[param]: '100%'});
     }
   }
@@ -58,7 +48,7 @@ const SizeGroup = ({current}) => {
           <FormLabel>width</FormLabel>
           <RadioGroup
             value={selectInter(current.styles.width)}
-            onChange={(e, value) => handleSizeMode(value, 'width', setCustomW)}
+            onChange={(e, value) => handleSizeMode(value, 'width')}
           >
             <FormControlLabel value="inherit" control={<Radio />} label="inherit" />
             <FormControlLabel value="full" control={<Radio />} label="full width" />
@@ -67,7 +57,7 @@ const SizeGroup = ({current}) => {
           </RadioGroup>
         </FormControl>
         {
-          customW
+          selectInter(current.styles.width) === 'custom'
           &&
           <TextField
             type="number"
@@ -83,7 +73,7 @@ const SizeGroup = ({current}) => {
           <FormLabel>height</FormLabel>
           <RadioGroup
             value={selectInter(current.styles.height)}
-            onChange={(e, value) => handleSizeMode(value, 'height', setCustomH)}
+            onChange={(e, value) => handleSizeMode(value, 'height')}
           >
             <FormControlLabel value="inherit" control={<Radio />} label="inherit" />
             <FormControlLabel value="full" control={<Radio />} label="full height" />
@@ -92,7 +82,7 @@ const SizeGroup = ({current}) => {
           </RadioGroup>
         </FormControl>
         {
-          customH
+          selectInter(current.styles.height) === 'custom'
           &&
           <TextField
             type="number"
@@ -108,7 +98,7 @@ const SizeGroup = ({current}) => {
           <FormLabel>max width</FormLabel>
           <RadioGroup
             value={selectInter(current.styles.maxWidth)}
-            onChange={(e, value) => handleSizeMode(value, 'maxWidth', setCustomMw)}
+            onChange={(e, value) => handleSizeMode(value, 'maxWidth')}
           >
             <FormControlLabel value="none" control={<Radio />} label="none" />
             <FormControlLabel value="full" control={<Radio />} label="full width" />
@@ -117,7 +107,7 @@ const SizeGroup = ({current}) => {
           </RadioGroup>
         </FormControl>
         {
-          customMw
+          selectInter(current.styles.maxWidth) === 'custom'
           &&
           <TextField
             type="number"
@@ -133,7 +123,7 @@ const SizeGroup = ({current}) => {
           <FormLabel>min width</FormLabel>
           <RadioGroup
             value={selectInter(current.styles.minWidth)}
-            onChange={(e, value) => handleSizeMode(value, 'minWidth', setCustomMnw)}
+            onChange={(e, value) => handleSizeMode(value, 'minWidth')}
           >
             <FormControlLabel value="none" control={<Radio />} label="none" />
             <FormControlLabel value="full" control={<Radio />} label="full width" />
@@ -142,7 +132,7 @@ const SizeGroup = ({current}) => {
           </RadioGroup>
         </FormControl>
         {
-          customMnw
+          selectInter(current.styles.minWidth) === 'custom'
           &&
           <TextField
             type="number"
@@ -159,7 +149,7 @@ const SizeGroup = ({current}) => {
           <FormLabel>max height</FormLabel>
           <RadioGroup
             value={selectInter(current.styles.maxHeight)}
-            onChange={(e, value) => handleSizeMode(value, 'maxHeight', setCustomMh)}
+            onChange={(e, value) => handleSizeMode(value, 'maxHeight')}
           >
             <FormControlLabel value="none" control={<Radio />} label="none" />
             <FormControlLabel value="full" control={<Radio />} label="full height" />
@@ -168,7 +158,7 @@ const SizeGroup = ({current}) => {
           </RadioGroup>
         </FormControl>
         {
-          customMh
+          selectInter(current.styles.maxHeight) === 'custom'
           &&
           <TextField
             type="number"
@@ -186,7 +176,7 @@ const SizeGroup = ({current}) => {
           <FormLabel>min height</FormLabel>
           <RadioGroup
             value={selectInter(current.styles.minHeight)}
-            onChange={(e, value) => handleSizeMode(value, 'minHeight', setCustomMnh)}
+            onChange={(e, value) => handleSizeMode(value, 'minHeight')}
           >
             <FormControlLabel value="none" control={<Radio />} label="none" />
             <FormControlLabel value="full" control={<Radio />} label="full height" />
@@ -195,7 +185,7 @@ const SizeGroup = ({current}) => {
           </RadioGroup>
         </FormControl>
         {
-          customMnh
+          selectInter(current.styles.minHeight) === 'custom'
           &&
           <TextField
             type="number"
