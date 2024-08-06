@@ -3,7 +3,7 @@ const selectInter = (select) => {
   switch(select) {
     case '100%':
       return 'full';
-    case 'inherit':
+    case 'auto':
     case 'none':
     case 'fit-content':
       return select;

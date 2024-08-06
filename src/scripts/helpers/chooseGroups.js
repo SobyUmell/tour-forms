@@ -64,10 +64,10 @@ const chooseGroups = (name) => {
     case 'VIDEO':
       return {
         bcg: false,
-        border: false,
+        border: true,
         flex: false,
         font: false,
-        size: false,
+        size: true,
         space: true,
         value: false,
         input: false,

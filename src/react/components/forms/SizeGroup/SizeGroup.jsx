@@ -25,7 +25,7 @@ const SizeGroup = ({current}) => {
       case 'custom': 
         pushChangedStyles({[param]: '500px'});
         break;
-      case 'inherit':
+      case 'auto':
       case 'none':
       case 'fit-content':
         pushChangedStyles({[param]: value});
@@ -50,7 +50,7 @@ const SizeGroup = ({current}) => {
             value={selectInter(current.styles.width)}
             onChange={(e, value) => handleSizeMode(value, 'width')}
           >
-            <FormControlLabel value="inherit" control={<Radio />} label="inherit" />
+            <FormControlLabel value="auto" control={<Radio />} label="auto" />
             <FormControlLabel value="full" control={<Radio />} label="full width" />
             <FormControlLabel value="fit-content" control={<Radio />} label="fit content" />
             <FormControlLabel value="custom" control={<Radio />} label="custom:px" />
@@ -75,7 +75,7 @@ const SizeGroup = ({current}) => {
             value={selectInter(current.styles.height)}
             onChange={(e, value) => handleSizeMode(value, 'height')}
           >
-            <FormControlLabel value="inherit" control={<Radio />} label="inherit" />
+            <FormControlLabel value="auto" control={<Radio />} label="auto" />
             <FormControlLabel value="full" control={<Radio />} label="full height" />
             <FormControlLabel value="fit-content" control={<Radio />} label="fit content" />
             <FormControlLabel value="custom" control={<Radio />} label="custom:px" />
@@ -137,7 +137,7 @@ const SizeGroup = ({current}) => {
           <TextField
             type="number"
             value={current.styles.minWidth ? current.styles.minWidth.replace('px', '') : ''}
-            onChange={(e) => pushChangedStyles({mixWidth: e.target.value + 'px'})}
+            onChange={(e) => pushChangedStyles({minWidth: e.target.value + 'px'})}
             onBlur={(e) => setDefaultWhenEmpty(e, () => pushChangedStyles({minWidth: 'none'}))}
             InputLabelProps={{
               shrink: true,
@@ -193,7 +193,7 @@ const SizeGroup = ({current}) => {
             value={current.styles.minHeight ? current.styles.minHeight.replace('px', '') : ''}
             onChange={(e) => pushChangedStyles({minHeight: e.target.value + 'px'})}
             onBlur={(e) => setDefaultWhenEmpty(e, () => pushChangedStyles({minHeight: 'none'}))}
-            InputLabelProps={{
+            InputLabelProps={{      
               shrink: true,
             }}
           />

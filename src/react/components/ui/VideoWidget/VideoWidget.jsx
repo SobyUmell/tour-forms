@@ -67,26 +67,28 @@ const VideoWidget = ({widget}) => {
     })
   }
 
-  return (
-    <div className={`VideoWidget ${widget.name === current ? 'focused' : ''}`} >
-      <div className="contene">
-        {
-          loading && 
-          <Skeleton variant="rectangular" sx={{width: '500px', height: '500px'}} />
-        }
-        {
-          uploaded && <ReactPlayer url={widget.attributes.value ? widget.attributes.value : ''} controls style={widget.styles} onClick={handleOnClick} />
-        }
-        
-        <Modal
-          open={open}
-          onClose={handleClose}
-        >
-          <MuiFileInput value={file} onChange={uploadVideo} placeholder={'Upload a video'} />
-        </Modal>
+
+  if (loading) {
+    return <Skeleton variant="rectangular" sx={{width: '500px', height: '500px'}} />
+  }
+  else if (uploaded) {
+    return (
+      <div className={`VideoWidget ${widget.name === current ? 'focused' : ''}`} style={widget.styles} onClick={handleOnClick}>
+        <ReactPlayer url={widget.attributes.value ? widget.attributes.value : ''} controls width={'100%'} height={'100%'}  />
       </div>
-    </div>
-  );
+    )
+  }
+  else {
+    return (
+      <Modal
+        open={open}
+        onClose={handleClose}
+      >
+        <MuiFileInput value={file} onChange={uploadVideo} placeholder={'Upload a video'} />
+      </Modal>
+    )
+  }
+  
 }
  
 export default VideoWidget;

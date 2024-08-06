@@ -8,6 +8,8 @@ import { storage } from "../../../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import uuid from 'react-uuid';
 
+import './ImageWidget.scss'
+
 const ImageWidget = ({widget}) => {
   const [open, setOpen] = useState(true);
   const [uploaded, setUploaded] = useState(false);
@@ -60,17 +62,22 @@ const ImageWidget = ({widget}) => {
   const handleOnClick = (e) => {
     e.stopPropagation();
     dispatch(setCurrentWidget(widget.name));
+    console.log(widget.name)
   }
 
-  return (
-    <div className={`ImageWidget ${widget.name === current ? 'focused' : ''}`}>
-      {
-        loading && 
-        <Skeleton variant="rectangular" sx={{width: '500px', height: '500px'}} />
-      }
-      {
-        uploaded && <img src={widget.attributes.value ? widget.attributes.value : ''} alt={'Image Widget'} style={widget.styles} onClick={handleOnClick} />
-      }
+
+  if (loading) {
+    return <Skeleton variant="rectangular" sx={{width: '500px', height: '500px'}} />
+  }
+  else if (uploaded) {
+    return (
+      <div className={`ImageWidget ${widget.name === current ? 'focused' : ''}`} style={widget.styles} onClick={handleOnClick} >
+        <img src={widget.attributes.value ? widget.attributes.value : ''} width={'100%'} height={'100%'}  alt={'Image Widget'}  />
+      </div>
+    )
+  }
+  else {
+    return (
       <Modal
         open={open}
         onClose={handleClose}
@@ -79,8 +86,8 @@ const ImageWidget = ({widget}) => {
       >
         <MuiFileInput value={file} onChange={uploadImg} placeholder={'Upload an image'} />
       </Modal>
-    </div>
-  );
+    )
+  }
 }
  
 export default ImageWidget;
