@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { root_default } from '../../constants/default';
 import { deleteObject } from 'firebase/storage';
-
+import deleteAllMedia from '../../scripts/backend/deleteAllMedia';
+import uuid from 'react-uuid';
 export const widgetSlice = createSlice({
   name: 'widgets',
   initialState: { 
+    name: `form_${uuid()}`,
     current: null,
     all: {
       'root': {
@@ -28,6 +30,9 @@ export const widgetSlice = createSlice({
     media: {}
   },
   reducers: {
+    changeName: (state, action) => {
+      state.name = action.payload;
+    },
     addWidget: (state, action) => {
       state.all[action.payload.name] = action.payload;
       state.all[action.payload.parent].children.push(action.payload.name);
@@ -63,10 +68,15 @@ export const widgetSlice = createSlice({
     setMediaRef: (state, action) => {
       state.media[action.payload.name] = action.payload.ref;
     },
-    resetMediaRef: (state, action) => {
-      if (state.media[action.payload.name]) {
-        delete state.media[action.payload.name];
-      }
+    deleteMedia: (state, action) => {
+      const refs = Object.values(state.media);
+      deleteAllMedia(refs)
+      .then(() => {
+        action.payload.success();
+      })
+      .catch((error) => {
+        action.payload.error(error);
+      })
     },
     setCurrentWidget: (state, action) => {
       state.current = action.payload;
@@ -78,6 +88,6 @@ export const widgetSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addWidget, delWidget, changeParam, changeValue, changePlaceholder, setMediaRef, setCurrentWidget, delCurrentWidget } = widgetSlice.actions
+export const { changeName, addWidget, delWidget, changeParam, changeValue, changePlaceholder, setMediaRef, deleteMedia, setCurrentWidget, delCurrentWidget } = widgetSlice.actions
 
 export default widgetSlice.reducer

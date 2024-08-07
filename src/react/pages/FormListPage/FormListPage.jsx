@@ -3,7 +3,6 @@ import * as React from 'react';
 // mui-components
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
@@ -14,6 +13,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
 
 // scss
 import './FormListPage.scss'
@@ -22,19 +22,28 @@ import './FormListPage.scss'
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import getAllForms from '../../../scripts/backend/getAllForms';
+import { Link } from 'react-router-dom';
+
+// api
+import deleteForm from '../../../scripts/backend/deleteForm';
 
 const FormListPage = () => {
   const state = useSelector(state => state.widgets.all);
   const [open, setOpen] = useState(false);
-  const [list, setList] = useState([1, 1, 1]);
+  const [list, setList] = useState([]);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
+
+  const handleOnDelete = (formId) => {
+    deleteForm(formId)
+    .then(console.log) 
+    .catch(console.log)
+  }
 
   const action = (
     <React.Fragment>
@@ -71,25 +80,37 @@ const FormListPage = () => {
           { 
             list.length ?
             list.map(form => {
-              return <ListItem className='list_item' disablePadding>
+              return <ListItem key={form.formId} className='list_item' disablePadding>
                 <div className="content">
-                  <h2>Content</h2>
+                  <h2>{form.name}</h2>
                   <div className="btn_group">
-                    <IconButton
+                    <Link to={`/view/${form.formId}`}>
+                      <IconButton
+                        color="inherit"
+                      >
+                        <RemoveRedEyeIcon />
+                      </IconButton>
+                    </Link>
+                    <Link to={`/edit/${form.formId}`}>
+                      <IconButton
+                        color="inherit"
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Link>
+                    <IconButton 
                       color="inherit"
-                    >
-                      <RemoveRedEyeIcon />
-                    </IconButton>
-                    <IconButton
-                      color="inherit"
-                    >
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton
-                      color="inherit"
+                      onClick={handleOnDelete}
                     >
                       <DeleteIcon />
                     </IconButton>
+                    <Link to={`/answers/${form.formId}`}>
+                      <IconButton
+                        color="inherit"
+                      >
+                        <ModeCommentIcon />
+                      </IconButton>
+                    </Link>
                   </div>
                 </div>
               </ListItem>
@@ -98,9 +119,11 @@ const FormListPage = () => {
             "No forms yet" 
           }
         </List>
-        <Button startIcon={<AddIcon />} variant={'contained'}>
-          Create
-        </Button>
+        <Link to={'/create'}>  
+          <Button startIcon={<AddIcon />} variant={'contained'}>
+            Create
+          </Button>
+        </Link>
         <Snackbar
           open={open}
           autoHideDuration={6000}

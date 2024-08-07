@@ -1,6 +1,6 @@
 import api from "./api";
 import store from "../../store/store";
-const postNewForm = async (obj_layout) => {
+const putEditedForm = async (form_id, obj_layout) => {
   try {
     const layout = Object.values(obj_layout).map(widget => {
       let copy_widget = {...widget};
@@ -16,11 +16,11 @@ const postNewForm = async (obj_layout) => {
       }
     })
     const name = store.getState().widgets.name;
-    const response = await api.post('/forms', {layout, questions, name});
+    const response = await api.put(`/forms/${form_id}`, {layout, questions, name});
     return response;
   } catch (error) {
     throw new Error('Failed to upload the form!');
   }
 }
 
-export default postNewForm;
+export default putEditedForm;
