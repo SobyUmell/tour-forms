@@ -10,7 +10,7 @@ import FormCanvas from '../../ui/FormCanvas';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Rnd } from 'react-rnd';
 import './ZoomPage.scss'
-import { deleteMedia } from '../../../../store/slices/WidgetSlice';
+import { deleteMedia, resetState } from '../../../../store/slices/WidgetSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { changeName } from '../../../../store/slices/WidgetSlice';
@@ -37,6 +37,7 @@ const ZoomPage = ({ onSave }) => {
   const handleOnCancel = () => {
     setOpen(true);
     dispatch(deleteMedia({success: successOnDelete, error: errorOnDelete}));
+    dispatch(resetState());
   }
   const handleMessageClose = (event, reason) => {
     if (reason === 'clickaway') {

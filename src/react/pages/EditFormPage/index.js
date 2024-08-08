@@ -1,3 +1,3 @@
-import EditFormPage from "./CreateFormPage";
+import EditFormPage from "./EditFormPage";
 
 export default EditFormPage;

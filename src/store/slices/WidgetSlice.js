@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { root_default } from '../../constants/default';
 import { deleteObject } from 'firebase/storage';
 import deleteAllMedia from '../../scripts/backend/deleteAllMedia';
+import convertTreeToArray from '../../scripts/helpers/convertTreeToArray';
 import uuid from 'react-uuid';
 export const widgetSlice = createSlice({
   name: 'widgets',
@@ -21,15 +22,44 @@ export const widgetSlice = createSlice({
             space: true,
             value: false,
             input: false,
-          }
+          },
+          media: {}
         },
         styles: root_default,
         children: []
       }
     },
-    media: {}
   },
   reducers: {
+    defineNewState: (state, action) => {
+      state.current = null;
+      state.name = `form_${uuid()}`;
+      state.all = convertTreeToArray(action.payload);
+    },
+    resetState: (state) => {
+      state.current = null;
+      state.name = `form_${uuid()}`;
+      state.all = {
+        'root': {
+          name: 'root',
+          attributes: {
+            groups: {
+              bcg: true,
+              border: true,
+              flex: true,
+              font: false,
+              size: false,
+              space: true,
+              value: false,
+              input: false,
+            },
+            media: {}
+          },
+          styles: root_default,
+          children: []
+        }
+      };
+    },
     changeName: (state, action) => {
       state.name = action.payload;
     },
@@ -38,8 +68,8 @@ export const widgetSlice = createSlice({
       state.all[action.payload.parent].children.push(action.payload.name);
     },
     delWidget: (state, action) => {
-      if (state.media[action.payload.name]) {
-        deleteObject(state.media[action.payload.name]).then(() => {
+      if (state.all['root'].attributes.media[action.payload.name]) {
+        deleteObject(state.all['root'].attributes.media[action.payload.name]).then(() => {
           console.log('the file is deleted using ref in delWidget');
         }).catch((error) => {
           console.log(error);
@@ -66,10 +96,11 @@ export const widgetSlice = createSlice({
       state.all[action.payload.name].attributes.placeholder = action.payload.placeholder;
     },
     setMediaRef: (state, action) => {
-      state.media[action.payload.name] = action.payload.ref;
+      // state.media[action.payload.name] = action.payload.ref;
+      state.all['root'].attributes.media[action.payload.name] = action.payload.ref;
     },
     deleteMedia: (state, action) => {
-      const refs = Object.values(state.media);
+      const refs = Object.values(state.all['root'].attributes.media);
       deleteAllMedia(refs)
       .then(() => {
         action.payload.success();
@@ -88,6 +119,6 @@ export const widgetSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { changeName, addWidget, delWidget, changeParam, changeValue, changePlaceholder, setMediaRef, deleteMedia, setCurrentWidget, delCurrentWidget } = widgetSlice.actions
+export const { defineNewState, resetState, changeName, addWidget, delWidget, changeParam, changeValue, changePlaceholder, setMediaRef, deleteMedia, setCurrentWidget, delCurrentWidget } = widgetSlice.actions
 
 export default widgetSlice.reducer

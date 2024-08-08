@@ -4,7 +4,7 @@ import { setCurrentWidget } from "../../../../store/slices/WidgetSlice";
 
 import './InputWidget.scss';
 
-const InputWidget = ({widget}) => {
+const SubmitWidget = ({widget}) => {
   const current = useSelector(state => state.widgets.current);
   const dispatch = useDispatch();
   const handleOnClick = (e) => {
@@ -12,8 +12,10 @@ const InputWidget = ({widget}) => {
     dispatch(setCurrentWidget(widget.name));
   }
   return (
-    <input className={`InputWidget ${widget.name === current ? 'focused' : ''}`} onClick={handleOnClick} type="text" placeholder={widget.attributes.placeholder} style={widget.styles} />
+    <button className={`SubmitWidget ${widget.name === current ? 'focused' : ''}`} onClick={handleOnClick} style={widget.styles}>
+      {widget.attributes.value}
+    </button>
   );
 }
  
-export default InputWidget;
+export default SubmitWidget;

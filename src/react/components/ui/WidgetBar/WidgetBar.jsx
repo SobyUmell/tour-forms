@@ -3,6 +3,7 @@ import TitleCard from "../../cards/TitleCard";
 import ImageCard from "../../cards/ImageCard"
 import VideoCard from "../../cards/VideoCard"
 import InputCard from "../../cards/InputCard"
+import SubmitCard from "../../cards/SubmitCard";
 import { Divider } from "@mui/material";
 
 // styles 
@@ -12,7 +13,6 @@ const WidgetBar = () => {
 
   return (  
     <div className="WidgetBar">
-      <h2>Form components</h2>
       <div className="list">
         <ContCard />
         <Divider />
@@ -23,6 +23,8 @@ const WidgetBar = () => {
         <VideoCard />
         <Divider />
         <InputCard />
+        <Divider />
+        <SubmitCard />
       </div>
     </div>
   );
