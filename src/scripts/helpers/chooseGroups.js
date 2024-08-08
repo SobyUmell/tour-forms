@@ -12,7 +12,6 @@ const chooseGroups = (name) => {
         value: true,
         input: false,
       };
-      break;
     case 'TEXT': 
       return {
         bcg: false,
@@ -24,7 +23,6 @@ const chooseGroups = (name) => {
         value: true,
         input: false,
       };
-      break;
     case 'INPUT': 
       return {
         bcg: false,
@@ -36,7 +34,17 @@ const chooseGroups = (name) => {
         value: false,
         input: true,
       };
-      break;
+    case 'SUBMIT': 
+    return {
+      bcg: true,
+      border: true,
+      flex: false,
+      font: true,
+      size: true,
+      space: true,
+      value: true,
+      input: false,
+    };
     case 'CONT':
       return {
         bcg: true,
@@ -48,7 +56,6 @@ const chooseGroups = (name) => {
         value: false,
         input: false,
       };
-      break;
     case 'IMAGE':
       return {
         bcg: false,
@@ -60,7 +67,6 @@ const chooseGroups = (name) => {
         value: false,
         input: false,
       };
-      break; 
     case 'VIDEO':
       return {
         bcg: false,
@@ -72,10 +78,8 @@ const chooseGroups = (name) => {
         value: false,
         input: false,
       };
-      break;
     default:
       return {};
-      break;
   }
 }
 

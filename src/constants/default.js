@@ -36,6 +36,15 @@ export const input_default = {
   maxWidth: '400px',
   width: '100%',
 }
+export const submit_default = {
+  width: '100px',
+  height: '40px',
+  backgroundColor: '#fff',
+  borderWidth: '1px',
+  borderStyle: 'solid',
+  borderRadius: '5px',
+  borderColor: '#000'
+}
 
 export const cont_default = {
   maxWidth: 'none',

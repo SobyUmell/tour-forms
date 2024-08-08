@@ -2,8 +2,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentWidget } from "../../../../store/slices/WidgetSlice";
 
-import './InputWidget.scss';
-
 const SubmitWidget = ({widget}) => {
   const current = useSelector(state => state.widgets.current);
   const dispatch = useDispatch();
@@ -13,7 +11,7 @@ const SubmitWidget = ({widget}) => {
   }
   return (
     <button className={`SubmitWidget ${widget.name === current ? 'focused' : ''}`} onClick={handleOnClick} style={widget.styles}>
-      {widget.attributes.value}
+      { widget.attributes.value || 'Submit' }
     </button>
   );
 }
