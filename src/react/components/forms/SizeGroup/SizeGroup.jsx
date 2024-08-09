@@ -3,7 +3,7 @@ import { changeParam } from "../../../../store/slices/WidgetSlice";
 import { useDispatch } from "react-redux";
 import setDefaultWhenEmpty from "../../../../scripts/helpers/setDefaultWhenEmpty";
 
-import selectInter from "../../../../scripts/helpers/sizeInter";
+import selectInter from "../../../../scripts/helpers/selectInter";
 
 import './SizeGroup.scss';
 import { useState } from "react";

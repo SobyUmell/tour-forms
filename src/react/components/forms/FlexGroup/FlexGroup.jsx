@@ -9,7 +9,9 @@ const FlexGroup = ({current}) => {
   const dispatch = useDispatch();
   const justify_content = ['center', 'start', 'end', 'space-between', 'space-around', 'space-evenly']
   const align_items = ['center', 'start', 'end'];
-  const flex_dir = ['column', 'row']
+  const flex_dir = ['column', 'row'];
+  const flex_wrap = ['nowrap', 'wrap', 'wrap-reverse'];
+
   const pushChangedStyles = (styles) => {
     const batch = {
       name: current.name,
@@ -26,6 +28,34 @@ const FlexGroup = ({current}) => {
   return (
     <div className="FlexGroup">
       <div className="content">
+        <FormControl fullWidth>
+          <InputLabel>direction</InputLabel>
+          <Select
+            label={'direction'}
+            value={current.styles.flexDirection || ''}
+            onChange={(e) => pushChangedStyles({flexDirection: e.target.value})}
+          >
+            {
+              flex_dir.map(type => {
+                return <MenuItem key={type} value={type}>{type}</MenuItem>
+              })
+            }
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <InputLabel>flex wrap</InputLabel>
+          <Select
+            label={'flex wrap'}
+            value={current.styles.flexWrap || ''}
+            onChange={(e) => pushChangedStyles({flexWrap: e.target.value})}
+          >
+            {
+              flex_wrap.map(type => {
+                return <MenuItem key={type} value={type}>{type}</MenuItem>
+              })
+            }
+          </Select>
+        </FormControl>
         <FormControl fullWidth>
           <InputLabel>justefy content</InputLabel>
           <Select
@@ -50,20 +80,6 @@ const FlexGroup = ({current}) => {
             {
               align_items.map(pos => {
                 return <MenuItem key={pos} value={pos}>{pos}</MenuItem>
-              })
-            }
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel>direction</InputLabel>
-          <Select
-            label={'direction'}
-            value={current.styles.flexDirection || ''}
-            onChange={(e) => pushChangedStyles({flexDirection: e.target.value})}
-          >
-            {
-              flex_dir.map(type => {
-                return <MenuItem key={type} value={type}>{type}</MenuItem>
               })
             }
           </Select>

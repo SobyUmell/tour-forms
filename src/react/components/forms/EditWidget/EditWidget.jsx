@@ -38,7 +38,7 @@ const EditWidget = () => {
       <div className="EditWidget">
         <div className="content">
           { w_state.all[w_state.current].attributes.groups.size &&
-            <Accordion defaultExpanded>
+            <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
               >
