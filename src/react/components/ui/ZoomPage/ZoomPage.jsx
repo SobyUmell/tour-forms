@@ -1,4 +1,4 @@
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Alert } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import * as React from 'react';
 import Snackbar from '@mui/material/Snackbar';
@@ -59,18 +59,6 @@ const ZoomPage = ({ onSave }) => {
     });
   };
 
-  const action = (
-    <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleMessageClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
 
   return (
     <div className="ZoomPage">
@@ -105,9 +93,16 @@ const ZoomPage = ({ onSave }) => {
             open={isError}
             autoHideDuration={6000}
             onClose={handleMessageClose}
-            message="Oops! Something's gone wrong!"
-            action={action}
-          />
+          >
+            <Alert
+              onClose={handleMessageClose}
+              severity="error"
+              variant="filled"
+              sx={{ width: '100%' }}
+            >
+              Oops! Something's gone wrong!
+            </Alert>
+          </Snackbar>
         </div>
         <div className="size">
           <TextField

@@ -3,7 +3,8 @@ import ContStatic from "../ContStatic";
 import ImageStatic from "../../ui/ImageStatic";
 import InputStatic from "../../inputs/InputStatic";
 import TitleStatic from "../../ui/TitleStatic";
-import VideoStatic from "../../ui/VideoStatic/VideoWidget";
+import VideoStatic from "../../ui/VideoStatic";
+import SubmitStatic from "../../inputs/SubmitStatic";
 
 const AutoStatic = ({widget, children}) => {
   const type = widget.name.split('_')[0];
@@ -20,6 +21,8 @@ const AutoStatic = ({widget, children}) => {
       return <ImageStatic widget={widget} />
     case 'INPUT':
       return <InputStatic widget={widget} />
+    case 'SUBMIT':
+      return <SubmitStatic widget={widget} />
     case 'TITLE':
       return <TitleStatic widget={widget} />
     case 'VIDEO':

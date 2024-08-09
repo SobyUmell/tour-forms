@@ -8,9 +8,8 @@ import LeftBar from "../../components/ui/LeftBar";
 import ZoomPage from "../../components/ui/ZoomPage";
 import * as React from 'react';
 import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import './EditFormPage.scss'
+import { Alert } from "@mui/material";
 
 const EditFormPage = () => {
   const { formId } = useParams();
@@ -51,31 +50,25 @@ const EditFormPage = () => {
     setIsPageError(false);
   };
 
-  const action = (
-    <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleMessageClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
-
   return (
     <div className="EditFormPage">
       <div className="content">
         <LeftBar />
         <ZoomPage onSave={handleOnSave}/>
         <Snackbar
-            open={isPageError}
-            autoHideDuration={6000}
+          open={isPageError}
+          autoHideDuration={6000}
+          onClose={handleMessageClose}
+        >
+          <Alert
             onClose={handleMessageClose}
-            message="Oops! Something's gone wrong!"
-            action={action}
-          />
+            severity="error"
+            variant="filled"
+            sx={{ width: '100%' }}
+          >
+            Oops! Something's gone wrong!
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   );

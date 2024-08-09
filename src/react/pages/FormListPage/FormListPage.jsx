@@ -6,6 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
+import { Alert } from '@mui/material';
 
 // mui-icons
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -44,22 +45,7 @@ const FormListPage = () => {
     .then(console.log) 
     .catch(console.log)
   }
-
-  const action = (
-    <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
-
   
-
   useEffect(() => {
     getAllForms()
     .then(res => {
@@ -128,9 +114,16 @@ const FormListPage = () => {
           open={open}
           autoHideDuration={6000}
           onClose={handleClose}
-          message="Can't load forms!"
-          action={action}
-        />
+        >
+          <Alert
+            onClose={handleClose}
+            severity="error"
+            variant="filled"
+            sx={{ width: '100%' }}
+          >
+            Error! Failed to load forms!
+          </Alert>
+        </Snackbar>
 
       </div>
     </div>

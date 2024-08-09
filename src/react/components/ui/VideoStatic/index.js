@@ -1,3 +1,3 @@
-import VideoWidget from "./VideoWidget";
+import VideoStatic from "./VideoStatic";
 
-export default VideoWidget;
+export default VideoStatic;
